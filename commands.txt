@@ -1,0 +1,19 @@
+
+download from Microsoft Code from https://go.microsoft.com/fwlink/?LinkID=760868
+
+sudo apt install ./code_1.89.0-1714530869_amd64.deb 
+sudo apt update
+sudo apt install git
+sudo apt install nodejs
+sudo apt install npm
+
+npm install -g nodemon
+npm install express
+//npm install mongodb@3.6
+npm install --save mongoose
+
+sudo npm install
+npm init
+node server
+nodemon server
+
