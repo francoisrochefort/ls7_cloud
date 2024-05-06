@@ -1,11 +1,11 @@
 
 // mongodb+srv://francoisrochefort1973:FrootFly747@ls7.xmk1zxx.mongodb.net/?retryWrites=true&w=majority&appName=ls7
 
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
+const Bucket = require('./models/bucket');
 
 mongoose.connect('mongodb+srv://francoisrochefort1973:FrootFly747@ls7.xmk1zxx.mongodb.net/?retryWrites=true&w=majority&appName=ls7')
     .then(() => {
@@ -26,12 +26,31 @@ app.use((req, res, next) => {
   });
 
   app.post('/api/ls7', (req, res, next) => {
-    console.log(req.body);
-    res.status(201).json(
-        {
-            message: 'received a new bucket'
+
+    const bucket = new Bucket({
+      name: req.body.name,
+      slotNumber: req.body.slotNumber,
+      refWeight: req.body.refWeight,
+      lastCalibration: req.body.lastCalibration,
+      calibBank1: req.body.calibBank1,
+      calibBank2: req.body.calibBank2,
+      calibBank3: req.body.calibBank3
+    });
+
+    bucket.save().then(
+      () => {
+        res.status(201).json({
+          message: 'Bucket saved successfully!'
         });
-});
+      }
+    ).catch(
+      (error) => {
+        res.status(400).json({
+          error: error
+        });
+      }
+    );
+  });
 
 app.get('/api/ls7', (req, res, next) => {
     const buckets = [
