@@ -26,7 +26,7 @@ app.use((req, res, next) => {
   });
 
 // upsert
-app.post('/api/ls7', async (req, res, next) => {
+app.post('/api/ls7/calibrations', async (req, res, next) => {
   try {
     const existingBucket = await Bucket.findOneAndUpdate(
       { name: req.body.name },
@@ -46,7 +46,7 @@ app.post('/api/ls7', async (req, res, next) => {
     if (existingBucket) {
       res.status(200).json({ message: 'Bucket updated successfully!' });
     } else {
-      res.status(201).json({ message: 'Bucket saved successfully!' });
+      res.status(201).json({ message: 'Bucket inserted successfully!' });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -54,7 +54,7 @@ app.post('/api/ls7', async (req, res, next) => {
 });
 
 // getByName
-app.get('/api/ls7/:name', async (req, res, next) => {
+app.get('/api/ls7/calibrations/:name', async (req, res, next) => {
   try {
     const bucket = await Bucket.findOne({ name: req.params.name });
     res.status(200).json(bucket);
@@ -64,7 +64,7 @@ app.get('/api/ls7/:name', async (req, res, next) => {
 });
 
 // listAll
-app.use('/api/ls7', async (req, res, next) => {
+app.get('/api/ls7/calibrations', async (req, res, next) => {
   try {
     const buckets = await Bucket.find();
     res.status(200).json(buckets);
@@ -74,5 +74,18 @@ app.use('/api/ls7', async (req, res, next) => {
     });
   }
 });
+
+// delete
+app.delete('/api/ls7/calibrations/:name', async (req, res, next) => {
+  try {
+    const buckets = await Bucket.deleteOne({ name: req.params.name });
+    res.status(204).json(buckets);
+  } catch (error) {
+    res.status(400).json({
+      error: error
+    });
+  }
+});
+
 
 module.exports = app;
