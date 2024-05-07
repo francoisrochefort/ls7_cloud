@@ -1,0 +1,53 @@
+    1  sudo apt install nodejs
+    2  sudo apt install npm
+    3  sudo npm install express
+    4  sudo npm install -g nodemon
+    5  npm fund
+    6  sudo apt update
+    7  sudo apt install git
+    8  sudo apt install code_1.89.0-1714530869_amd64.deb
+    9  sudo apt install ./code_1.89.0-1714530869_amd64.deb 
+   10  sudo apt install git
+   11  git clone https://github.com/francoisrochefort/ls7_cloud.git
+   12  code .
+   13  git clone https://github.com/francoisrochefort/ls7_cloud.git
+   14  code .
+   15  git clone [200~/home/osboxes/Desktop/ls7_cloud/models
+   16  /home/osboxes/Desktop/ls7_cloud/app.js
+   17  /home/osboxes/Desktop/ls7_cloud/commands.txt
+   18  /home/osboxes/Desktop/ls7_cloud/package.json
+   19  /home/osboxes/Desktop/ls7_cloud/package-lock.json
+   20  git clone https://github.com/francoisrochefort/ls7_cloud.git
+   21  cd ls7_cloud/
+   22  code .
+   23  sudo npm install express
+   24  sudo npm install -g nodemon
+   25  sudo npm install
+   26  nodemon server
+   27  clear
+   28  nodemon server
+   29  clear
+   30  nodemon server
+   31  mongo
+   32  nodemon server
+   33  clear
+   34  nodemon server
+   35  git status
+   36  git add *
+   37  git config advice.addIgnoredFile false
+   38  git add *
+   39  git commit -m "fixed main issues"
+   40  git config --global user.email "francoisrochefort@hotmail.fr"
+   41  git config --global user.name "johnny cash"
+   42  git commit -m "fixed main issues"
+   43  mongoose
+   44  mongo
+   45  sudo apt update
+   46  sudo apt install mongodb
+   47  sudo apt-get install -y mongodb-org
+   48  sudo apt-get install gnupg curl
+   49  curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc |    sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg    --dearmor
+   50  echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+   51  sudo apt-get update
+   52  sudo apt-get install -y mongodb-org
+   53  history > cmd.txt
