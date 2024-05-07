@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 const bucketSchema = mongoose.Schema({
-    name: { type: String, required: true },
+    name: { type: String, required: true, unique: true },
     slotNumber: { type: Number, required: true },
     refWeight: { type: Number, required: true },
     lastCalibration: { type: String, required: true },

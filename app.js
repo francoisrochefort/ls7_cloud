@@ -25,57 +25,54 @@ app.use((req, res, next) => {
     next();
   });
 
-  app.post('/api/ls7', (req, res, next) => {
-
-    const bucket = new Bucket({
-      name: req.body.name,
-      slotNumber: req.body.slotNumber,
-      refWeight: req.body.refWeight,
-      lastCalibration: req.body.lastCalibration,
-      calibBank1: req.body.calibBank1,
-      calibBank2: req.body.calibBank2,
-      calibBank3: req.body.calibBank3
-    });
-
-    bucket.save().then(
-      () => {
-        res.status(201).json({
-          message: 'Bucket saved successfully!'
-        });
-      }
-    ).catch(
-      (error) => {
-        res.status(400).json({
-          error: error
-        });
-      }
+// upsert
+app.post('/api/ls7', async (req, res, next) => {
+  try {
+    const existingBucket = await Bucket.findOneAndUpdate(
+      { name: req.body.name },
+      {
+        $set: {
+          slotNumber: req.body.slotNumber,
+          refWeight: req.body.refWeight,
+          lastCalibration: req.body.lastCalibration,
+          calibBank1: req.body.calibBank1,
+          calibBank2: req.body.calibBank2,
+          calibBank3: req.body.calibBank3
+        }
+      },
+      { new: true, upsert: true }
     );
-  });
 
-app.get('/api/ls7', (req, res, next) => {
-    const buckets = [
-      {
-        _id: '1',
-        name: 'BB8',
-        slotNumber: 1,
-        refWeight: 20000,
-        lastCalibration: '2024-01-13',
-        calibBank1: '',
-        calibBank2: '',
-        calibBank3: ''
-      },
-      {
-        _id: '2',
-        name: 'C3PO',
-        slotNumber: 2,
-        refWeight: 10000,
-        lastCalibration: '2024-05-03',
-        calibBank1: '',
-        calibBank2: '',
-        calibBank3: ''
-      },
-    ];
+    if (existingBucket) {
+      res.status(200).json({ message: 'Bucket updated successfully!' });
+    } else {
+      res.status(201).json({ message: 'Bucket saved successfully!' });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// getByName
+app.get('/api/ls7/:name', async (req, res, next) => {
+  try {
+    const bucket = await Bucket.findOne({ name: req.params.name });
+    res.status(200).json(bucket);
+  } catch (error) {
+    res.status(404).json({ error: error });
+  }
+});
+
+// listAll
+app.use('/api/ls7', async (req, res, next) => {
+  try {
+    const buckets = await Bucket.find();
     res.status(200).json(buckets);
-  });
+  } catch (error) {
+    res.status(400).json({
+      error: error
+    });
+  }
+});
 
 module.exports = app;
